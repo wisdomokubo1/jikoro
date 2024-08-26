@@ -6,9 +6,9 @@
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Jikoro - Learn African Languages</title>
-  <meta content="Jikoro - Learn African Languages" name="description">
-  <meta content="jikoro, learn, african, languages, app, nigeria, top"
+  <title>Okrika | p1</title>
+  <meta content="The African Languages App" name="description">
+  <meta content="jikoro, sophia, learn, african, languages, okrika, app, nigeria, top"
     name="keywords">
 
   <!-- Favicons -->
@@ -86,8 +86,26 @@
       color: #FFFFFF;
       background-color: #00A4BD;
     }
+    
+      df-messenger {
+   --df-messenger-bot-message: black;
+   --df-messenger-button-titlebar-color: black;
+   --df-messenger-chat-background-color: black;
+   --df-messenger-font-color: white;
+   --df-messenger-send-icon: blue;
+   --df-messenger-user-message: grey;
+  }
   </style>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
+<df-messenger
+  chat-icon="https:&#x2F;&#x2F;wisdombot.000webhostapp.com&#x2F;conversative.png"
+  intent="WELCOME"
+  chat-title="WisdomBot"
+  agent-id="54b7cbf2-9067-40d3-ac6b-1e1e48998517"
+  language-code="en"
+  
+></df-messenger>
 
 </head>
 
@@ -131,24 +149,18 @@
   
   -->
 
+
+
+
+
   <!-- ======= Hero Section ======= -->
   <section id="hero">
+  
+ 
+    
     <div class="container">
         
-        <!--
-      <div class="row">
 
-        <div class="col-lg-5 order-1 order-lg-2 hero-img aos-init aos-animate" data-aos="zoom-out" data-aos-delay="300">
-
-         
-            <img src="thinkroom_files/africa.png" class="img-fluid animated" alt="">
-
-
-          </div>
-          
-        </div>
-        
-        -->
 
         <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
           <div data-aos="zoom-out" class="typewriter aos-init aos-animate">
@@ -156,249 +168,292 @@
         <h1 style="font-family: &#39;Merriweather&#39;, serif;">Okrika Lessons</h1>
             <h2>Tap to listen to pronunciation..</h2>
             
-         <p style="color:white;">1/~</p>
+            
+               <input id="searchbarnigeria" onkeyup="search_nigerianlanguage()" type="text"
 
-    
-    <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika1').play()"><b>Nda loku?</b></button>
-    <audio id="okrika1" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika1.mp3"></audio>
+        name="search" placeholder="Search Okrika"> 
+
+                  
+<ol id='list'>
+<li class="nigerianlanguages">
+    <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika1').play()"><b>Nda loku?</b></button>
+    <audio id="okrika1" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika1.m4a"></audio>
 
 
  <button style="background-color:#FF3A3937" onclick="document.getElementById('english1').play()">How are you?</button>
-    <audio id="english1" src="https://wisdombot.000webhostapp.com/copyright/english1.wav"></audio>
-    
+    <audio id="english1" src="https://wisdomokubo1.github.io/jikoro/copyright/english1.wav"></audio>
+</li>
+<br>
 
-<br><br>
 
-<p style="color:white;">2/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika2').play()"><b>?</b></button>
-    <audio id="okrika2" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika2.mp3"></audio>
+<!--
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika2').play()"><b>?</b></button>
+    <audio id="okrika2" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika2.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english2').play()" >What's up?</button>
-    <audio id="english2" src="https://wisdombot.000webhostapp.com/copyright/english2.wav"></audio>
-    
+    <audio id="english2" src="https://wisdomokubo1.github.io/jikoro/copyright/english2.wav"></audio>
+</li>
+<br>
 
-<br><br>
 
-<p style="color:white;">3/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('okrika3').play()"><b>..
-        </b></button>
-    <audio id="okrika3" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika3.mp3"></audio>
+<li class="nigerianlanguages">
+     <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika3').play()"><b>..</b></button>
+    <audio id="okrika3" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika3.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english3').play()" >Nice to meet you</button>
-    <audio id="english3" src="https://wisdombot.000webhostapp.com/copyright/english3.wav"></audio>
-    
+    <audio id="english3" src="https://wisdomokubo1.github.io/jikoro/copyright/english3.wav"></audio>
+</li>
+<br>
 
-<br><br>
+-->
 
-<p style="color:white;">4/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika4').play()"><b>Ndeji paka?</b></button>
-    <audio id="okrika4" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika4.mp3"></audio>
+
+<li class="nigerianlanguages">
+      <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika4').play()"><b>Ndeji paka?</b></button>
+    <audio id="okrika4" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika4.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english4').play()" >Where are you from?</button>
-    <audio id="english4" src="https://wisdombot.000webhostapp.com/copyright/english4.wav"></audio>
-    
-
-<br><br>
-
-<p style="color:white;">5/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('okrika5').play()"><b>Nde ani mua roku?</b></button>
-    <audio id="okrika5" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika5.mp3"></audio>
+    <audio id="english4" src="https://wisdomokubo1.github.io/jikoro/copyright/english4.wav"></audio>
+</li>
+<br>
+<li class="nigerianlanguages">
+     <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika5').play()"><b>Nde ani mua roku?</b></button>
+    <audio id="okrika5" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika5.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english5').play()" >How's it going?</button>
-    <audio id="english5" src="https://wisdombot.000webhostapp.com/copyright/english5.wav"></audio>
-    
+    <audio id="english5" src="https://wisdomokubo1.github.io/jikoro/copyright/english5.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">6/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('okrika6').play()"><b>Iche yaw?</b></button>
-    <audio id="okrika6" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika6.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika6').play()"><b>Iche yaw?</b></button>
+    <audio id="okrika6" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika6.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english6').play()" >What do you do?</button>
-    <audio id="english6" src="https://wisdombot.000webhostapp.com/copyright/english6.wav"></audio>
-    
+    <audio id="english6" src="https://wisdomokubo1.github.io/jikoro/copyright/english6.wav"></audio>
+</li>
+<br>
 
-<br><br>
 
-<p style="color:white;">7/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika7').play()"><b>..</b></button>
-    <audio id="okrika7" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika7.mp3"></audio>
+<!--
+
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika7').play()"><b>..</b></button>
+    <audio id="okrika7" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika7.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english7').play()" >I don't know</button>
-    <audio id="english7" src="https://wisdombot.000webhostapp.com/copyright/english7.wav"></audio>
-    
-
-<br><br>
-
-<p style="color:white;">8/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('okrika8').play()"><b>..</b></button>
-    <audio id="okrika8" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika8.mp3"></audio>
+    <audio id="english7" src="https://wisdomokubo1.github.io/jikoro/copyright/english7.wav"></audio>
+</li>
+<br>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika8').play()"><b>..</b></button>
+    <audio id="okrika8" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika8.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english8').play()" >That's interesting</button>
-    <audio id="english8" src="https://wisdombot.000webhostapp.com/copyright/english8.wav"></audio>
-    
+    <audio id="english8" src="https://wisdomokubo1.github.io/jikoro/copyright/english8.wav"></audio>
+</li>
+<br>
 
-<br><br>
 
-<p style="color:white;">9/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika9').play()"><b>..</b></button>
-    <audio id="okrika9" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika9.mp3"></audio>
+<li class="nigerianlanguages">
+      <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika9').play()"><b>..</b></button>
+    <audio id="okrika9" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika9.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english9').play()" >I agree</button>
-    <audio id="english9" src="https://wisdombot.000webhostapp.com/copyright/english9.wav"></audio>
-    
+    <audio id="english9" src="https://wisdomokubo1.github.io/jikoro/copyright/english9.wav"></audio>
+</li>
+<br>
 
-<br><br>
+-->
 
-<p style="color:white;">10/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika10').play()"><b>Abere nikeh</b></button>
-    <audio id="okrika10" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika10.mp3"></audio>
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika10').play()"><b>Abere nikeh</b></button>
+    <audio id="okrika10" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika10.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english10').play()" >I disagree</button>
-    <audio id="english10" src="https://wisdombot.000webhostapp.com/copyright/english10.wav"></audio>
-    
+    <audio id="english10" src="https://wisdomokubo1.github.io/jikoro/copyright/english10.wav"></audio>
+</li>
+<br>
 
-<br><br>
 
-<p style="color:white;">11/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika11').play()"><b>..</b></button>
-    <audio id="okrika11" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika11.mp3"></audio>
+<!--
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika11').play()"><b>..</b></button>
+    <audio id="okrika11" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika11.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english11').play()" >Excuse me</button>
-    <audio id="english11" src="https://wisdombot.000webhostapp.com/copyright/english11.wav"></audio>
-    
+    <audio id="english11" src="https://wisdomokubo1.github.io/jikoro/copyright/english11.wav"></audio>
+</li>
+<br>
 
-<br><br>
+-->
 
-<p style="color:white;">12/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika12').play()"><b>Forsime</b></button>
-    <audio id="okrika12" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika12.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika12').play()"><b>Forsime</b></button>
+    <audio id="okrika12" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika12.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english12').play()" >Sorry</button>
-    <audio id="english12" src="https://wisdombot.000webhostapp.com/copyright/english12.wav"></audio>
-    
+    <audio id="english12" src="https://wisdomokubo1.github.io/jikoro/copyright/english12.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">13/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika13').play()"><b>Pasisi</b></button>
-    <audio id="okrika13" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika13.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika13').play()"><b>Pasisi</b></button>
+    <audio id="okrika13" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika13.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english13').play()" >Please</button>
-    <audio id="english13" src="https://wisdombot.000webhostapp.com/copyright/english13.wav"></audio>
-    
+    <audio id="english13" src="https://wisdomokubo1.github.io/jikoro/copyright/english13.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">14/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika14').play()"><b>Miebaka</b></button>
-    <audio id="okrika14" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika14.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika14').play()"><b>Miebaka</b></button>
+    <audio id="okrika14" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika14.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english14').play()" >Thank you</button>
-    <audio id="english14" src="https://wisdombot.000webhostapp.com/copyright/english14.wav"></audio>
-    
+    <audio id="english14" src="https://wisdomokubo1.github.io/jikoro/copyright/english14.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">15/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika15').play()"><b>Bere oforiye</b></button>
-    <audio id="okrika15" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika15.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika15').play()"><b>Bere oforiye</b></button>
+    <audio id="okrika15" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika15.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english15').play()" >You're welcome</button>
-    <audio id="english15" src="https://wisdombot.000webhostapp.com/copyright/english15.wav"></audio>
-    
+    <audio id="english15" src="https://wisdomokubo1.github.io/jikoro/copyright/english15.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">16/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('okrika16').play()"><b>Ndana barachua ipiribe?</b></button>
-    <audio id="okrika16" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika16.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika16').play()"><b>Ndana barachua ipiribe?</b></button>
+    <audio id="okrika16" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika16.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english16').play()" >Can you help me?</button>
-    <audio id="english16" src="https://wisdombot.000webhostapp.com/copyright/english16.wav"></audio>
-    
+    <audio id="english16" src="https://wisdomokubo1.github.io/jikoro/copyright/english16.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">17/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('okrika17').play()"><b>Iyereche?</b></button>
-    <audio id="okrika17" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika17.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika17').play()"><b>Iyereche?</b></button>
+    <audio id="okrika17" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika17.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english17').play()" >What's your name?</button>
-    <audio id="english17" src="https://wisdombot.000webhostapp.com/copyright/english17.wav"></audio>
-    
+    <audio id="english17" src="https://wisdomokubo1.github.io/jikoro/copyright/english17.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">18/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika18').play()"><b>Yesosike wa iriyabia</b></button>
-    <audio id="okrika18" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika18.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika18').play()"><b>Yesosike wa iriyabia</b></button>
+    <audio id="okrika18" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika18.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english18').play()" >See you later</button>
-    <audio id="english18" src="https://wisdombot.000webhostapp.com/copyright/english18.wav"></audio>
-    
+    <audio id="english18" src="https://wisdomokubo1.github.io/jikoro/copyright/english18.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">19/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika19').play()"><b>Bokuma sime o</b></button>
-    <audio id="okrika19" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika19.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika19').play()"><b>Bokuma sime o</b></button>
+    <audio id="okrika19" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika19.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english19').play()" >Take Care</button>
-    <audio id="english19" src="https://wisdombot.000webhostapp.com/copyright/english19.wav"></audio>
-    
+    <audio id="english19" src="https://wisdomokubo1.github.io/jikoro/copyright/english19.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">20/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('okrika20').play()"><b>Yesosike wa iriyabia</b></button>
-    <audio id="okrika20" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika20.mp3"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika20').play()"><b>Yesosike wa iriyabia</b></button>
+    <audio id="okrika20" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika20.m4a"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english20').play()" >Goodbye</button>
-    <audio id="english20" src="https://wisdombot.000webhostapp.com/copyright/english20.wav"></audio>
-    
+    <audio id="english20" src="https://wisdomokubo1.github.io/jikoro/copyright/english20.wav"></audio>
+</li>
+<br>
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika23').play()"><b>Bere ofori ye</b></button>
+    <audio id="okrika23" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika23.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english').play()" >No problem</button>
+    <audio id="english" src="https://wisdomokubo1.github.io/jikoro/copyright/english.wav"></audio>
+</li>
+<br>
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika24').play()"><b>Iwoye omi?</b></button>
+    <audio id="okrika24" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika24.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english').play()" >What's new?</button>
+    <audio id="english" src="https://wisdomokubo1.github.io/jikoro/copyright/english.wav"></audio>
+</li>
+<br>
+
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika25').play()"><b>Nde mingba anisi moku?</b></button>
+    <audio id="okrika25" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika25.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english').play()" >How was your day?</button>
+    <audio id="english" src="https://wisdomokubo1.github.io/jikoro/copyright/english.wav"></audio>
+</li>
+<br>
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika26').play()"><b>Ibiime, Miebaka</b></button>
+    <audio id="okrika26" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika26.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english').play()" >I'm fine, thank you</button>
+    <audio id="english" src="https://wisdomokubo1.github.io/jikoro/copyright/english.wav"></audio>
+</li>
+<br>
+
+
+<!--
+
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika27').play()"><b></b></button>
+    <audio id="okrika27" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika27.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english').play()" >Its a pleasure</button>
+    <audio id="english" src="https://wisdomokubo1.github.io/jikoro/copyright/english.wav"></audio>
+</li>
+<br>
+
+-->
+
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika28').play()"><b>Mingba ndeso anatorisi moku?</b></button>
+    <audio id="okrika28" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika28.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english').play()" >How's the weather?</button>
+    <audio id="english" src="https://wisdomokubo1.github.io/jikoro/copyright/english.wav"></audio>
+</li>
+<br>
+
+
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('okrika29').play()"><b>Ndeji iyanga?</b></button>
+    <audio id="okrika29" src="https://wisdomokubo1.github.io/jikoro/copyright/okrika29.m4a"></audio>
+
+               <button style="background-color:#FF3A3937" onclick="document.getElementById('english20').play()" >Where do you live?</button>
+    <audio id="english20" src="https://wisdomokubo1.github.io/jikoro/copyright/english20.wav"></audio>
+</li>
+<br>
+
+
+</ol>
 
 <br><br>
 
-
+   <a href="https:wisdomokubo1.github.io/jikoro/okrikaquiz1.html"><button style="background-color:white;color:black;">Learn 10 Okrika Words / Phrases</button></a>
+   
+   <br><br>
 
 <br><br>
 
@@ -413,17 +468,17 @@
 
 
   </section>
-  <!-- End Hero -->
+
 
 
 <!--
  <div class="bottom-nav">
      
-        <a href="igboquiz.html">
+        <a href="okrikaquiz.html">
         <button onclick="alert('Back!')">Back</button>
         </a>
         
-    <a href="igboquiz2.html">
+    <a href="okrikaquiz2.html">
         <button onclick="alert('Next Question!')">Next</button>
         </a>
     </div>
@@ -438,7 +493,7 @@
         
           <script>
         function playAudio() {
-            var audio = document.getElementById('igbo1').value;
+            var audio = document.getElementById('okrika1').value;
             audio.play();
         }
     </script>
@@ -475,6 +530,11 @@
     
 <script src="./languages.js"></script>
 <script src="./nigerianlanguages.js"></script>
+<script src="./hausalanguage.js"></script>
+<script src="./yorubalanguage.js"></script>
+<script src="./igbolanguage.js"></script>
+<script src="./okrikalanguage.js"></script>
+<script src="./swahililanguage.js"></script>
 
     <script src="./thinkroom_files/smtp.js.download"></script>
     <!-- Vendor JS Files -->
