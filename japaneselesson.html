@@ -6,9 +6,9 @@
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Jikoro - Learn African Languages</title>
-  <meta content="Jikoro - Learn African Languages" name="description">
-  <meta content="jikoro, learn, african, languages, app, nigeria, top"
+  <title>Japanese | p1</title>
+  <meta content="The African Languages App" name="description">
+  <meta content="jikoro, sophia, learn, asian, languages, japanese, app, japan, top"
     name="keywords">
 
   <!-- Favicons -->
@@ -86,8 +86,26 @@
       color: #FFFFFF;
       background-color: #00A4BD;
     }
+    
+      df-messenger {
+   --df-messenger-bot-message: black;
+   --df-messenger-button-titlebar-color: black;
+   --df-messenger-chat-background-color: black;
+   --df-messenger-font-color: white;
+   --df-messenger-send-icon: blue;
+   --df-messenger-user-message: grey;
+  }
   </style>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
+<df-messenger
+  chat-icon="https:&#x2F;&#x2F;wisdomokubo1.github.io&#x2F;jikoro&#x2F;headsetwhite.png"
+  intent="WELCOME"
+  chat-title="WisdomBot"
+  agent-id="54b7cbf2-9067-40d3-ac6b-1e1e48998517"
+  language-code="en"
+  
+></df-messenger>
 
 </head>
 
@@ -131,24 +149,18 @@
   
   -->
 
+
+
+
+
   <!-- ======= Hero Section ======= -->
   <section id="hero">
+  
+ 
+    
     <div class="container">
         
-        <!--
-      <div class="row">
 
-        <div class="col-lg-5 order-1 order-lg-2 hero-img aos-init aos-animate" data-aos="zoom-out" data-aos-delay="300">
-
-         
-            <img src="thinkroom_files/africa.png" class="img-fluid animated" alt="">
-
-
-          </div>
-          
-        </div>
-        
-        -->
 
         <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
           <div data-aos="zoom-out" class="typewriter aos-init aos-animate">
@@ -156,288 +168,217 @@
         <h1 style="font-family: &#39;Merriweather&#39;, serif;">Japanese Lessons</h1>
             <h2>Tap to listen to pronunciation..</h2>
             
-         <p style="color:white;">1/~</p>
+            
+               <input id="searchbarnigeria" onkeyup="search_nigerianlanguage()" type="text"
 
-    
-    <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese1').play()"><b>調子はどうですか
-<br>Chōshi wa dōdesu ka?
-</b></button>
-    <audio id="japanese1" src="https://wisdombot.000webhostapp.com/copyright/japanese1.wav"></audio>
+        name="search" placeholder="Search Japanese"> 
+
+                  
+<ol id='list'>
+<li class="nigerianlanguages">
+    <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese1').play()"><b>調子はどうですか
+<br>Chōshi wa dōdesu ka?</b></button>
+    <audio id="japanese1" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese1.wav"></audio>
 
 
  <button style="background-color:#FF3A3937" onclick="document.getElementById('english1').play()">How are you?</button>
-    <audio id="english1" src="https://wisdombot.000webhostapp.com/copyright/english1.wav"></audio>
-    
+    <audio id="english1" src="https://wisdomokubo1.github.io/jikoro/copyright/english1.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">2/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese2').play()"><b>どうしたの
-<br>-Dōshita no?
-</b></button>
-    <audio id="japanese2" src="https://wisdombot.000webhostapp.com/copyright/japanese2.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese2').play()"><b>どうしたの
+<br>-Dōshita no?</b></button>
+    <audio id="japanese2" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese2.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english2').play()" >What's up?</button>
-    <audio id="english2" src="https://wisdombot.000webhostapp.com/copyright/english2.wav"></audio>
-    
+    <audio id="english2" src="https://wisdomokubo1.github.io/jikoro/copyright/english2.wav"></audio>
+</li>
+<br>
 
-<br><br>
 
-<p style="color:white;">3/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('japanese3').play()"><b>初めまして。
-<br>Hajimemashite
-</b></button>
-    <audio id="japanese3" src="https://wisdombot.000webhostapp.com/copyright/japanese3.wav"></audio>
+
+<li class="nigerianlanguages">
+     <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese3').play()"><b>初めまして。
+<br>Hajimemashite</b></button>
+    <audio id="japanese3" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese3.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english3').play()" >Nice to meet you</button>
-    <audio id="english3" src="https://wisdombot.000webhostapp.com/copyright/english3.wav"></audio>
-    
-
-<br><br>
-
-<p style="color:white;">4/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese4').play()"><b>出身地はどこですか
-<br>Shusshin-chi wa dokodesu ka?
-</b></button>
-    <audio id="japanese4" src="https://wisdombot.000webhostapp.com/copyright/japanese4.wav"></audio>
+    <audio id="english3" src="https://wisdomokubo1.github.io/jikoro/copyright/english3.wav"></audio>
+</li>
+<br>
+<li class="nigerianlanguages">
+      <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese4').play()"><b>出身地はどこですか
+<br>Shusshin-chi wa dokodesu ka?</b></button>
+    <audio id="japanese4" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese4.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english4').play()" >Where are you from?</button>
-    <audio id="english4" src="https://wisdombot.000webhostapp.com/copyright/english4.wav"></audio>
-    
-
-<br><br>
-
-<p style="color:white;">5/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('japanese5').play()"><b>調子はどうですか
-<br>Chōshi wa dōdesu ka?
-</b></button>
-    <audio id="japanese5" src="https://wisdombot.000webhostapp.com/copyright/japanese5.wav"></audio>
+    <audio id="english4" src="https://wisdomokubo1.github.io/jikoro/copyright/english4.wav"></audio>
+</li>
+<br>
+<li class="nigerianlanguages">
+     <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese5').play()"><b>調子はどうですか
+<br>Chōshi wa dōdesu ka?</b></button>
+    <audio id="japanese5" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese5.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english5').play()" >How's it going?</button>
-    <audio id="english5" src="https://wisdombot.000webhostapp.com/copyright/english5.wav"></audio>
-    
+    <audio id="english5" src="https://wisdomokubo1.github.io/jikoro/copyright/english5.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">6/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('japanese6').play()"><b>何をしますか
-<br>Nan o shimasu ka?
-</b></button>
-    <audio id="japanese6" src="https://wisdombot.000webhostapp.com/copyright/japanese6.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese6').play()"><b>何をしますか
+<br>Nan o shimasu ka?</b></button>
+    <audio id="japanese6" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese6.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english6').play()" >What do you do?</button>
-    <audio id="english6" src="https://wisdombot.000webhostapp.com/copyright/english6.wav"></audio>
-    
+    <audio id="english6" src="https://wisdomokubo1.github.io/jikoro/copyright/english6.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">7/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese7').play()"><b>分かりません。
-<br>Wakarimasen
-</b></button>
-    <audio id="japanese7" src="https://wisdombot.000webhostapp.com/copyright/japanese7.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese7').play()"><b>分かりません。
+<br>Wakarimasen</b></button>
+    <audio id="japanese7" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese7.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english7').play()" >I don't know</button>
-    <audio id="english7" src="https://wisdombot.000webhostapp.com/copyright/english7.wav"></audio>
-    
-
-<br><br>
-
-<p style="color:white;">8/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('japanese8').play()"><b>それは興味深いですね。
-<br>Sore wa kyōmibukaidesu ne
-</b></button>
-    <audio id="japanese8" src="https://wisdombot.000webhostapp.com/copyright/japanese8.wav"></audio>
+    <audio id="english7" src="https://wisdomokubo1.github.io/jikoro/copyright/english7.wav"></audio>
+</li>
+<br>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese8').play()"><b>それは興味深いですね。
+<br>Sore wa kyōmibukaidesu ne</b></button>
+    <audio id="japanese8" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese8.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english8').play()" >That's interesting</button>
-    <audio id="english8" src="https://wisdombot.000webhostapp.com/copyright/english8.wav"></audio>
-    
+    <audio id="english8" src="https://wisdomokubo1.github.io/jikoro/copyright/english8.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">9/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese9').play()"><b>同意します。
-<br>Dōi shimasu
-</b></button>
-    <audio id="japanese9" src="https://wisdombot.000webhostapp.com/copyright/japanese9.wav"></audio>
+<li class="nigerianlanguages">
+      <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese9').play()"><b>同意します。
+<br>Dōi shimasu</b></button>
+    <audio id="japanese9" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese9.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english9').play()" >I agree</button>
-    <audio id="english9" src="https://wisdombot.000webhostapp.com/copyright/english9.wav"></audio>
-    
-
-<br><br>
-
-<p style="color:white;">10/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese10').play()"><b>私は同意しません。
-<br>Watashi wa dōi shimasen
-</b></button>
-    <audio id="japanese10" src="https://wisdombot.000webhostapp.com/copyright/japanese10.wav"></audio>
+    <audio id="english9" src="https://wisdomokubo1.github.io/jikoro/copyright/english9.wav"></audio>
+</li>
+<br>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese10').play()"><b>私は同意しません。
+<br>Watashi wa dōi shimasen</b></button>
+    <audio id="japanese10" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese10.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english10').play()" >I disagree</button>
-    <audio id="english10" src="https://wisdombot.000webhostapp.com/copyright/english10.wav"></audio>
-    
+    <audio id="english10" src="https://wisdomokubo1.github.io/jikoro/copyright/english10.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">11/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese11').play()"><b>すみません。
-<br>Sumimasen
-</b></button>
-    <audio id="japanese11" src="https://wisdombot.000webhostapp.com/copyright/japanese11.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese11').play()"><b>すみません。
+<br>Sumimasen</b></button>
+    <audio id="japanese11" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese11.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english11').play()" >Excuse me</button>
-    <audio id="english11" src="https://wisdombot.000webhostapp.com/copyright/english11.wav"></audio>
-    
+    <audio id="english11" src="https://wisdomokubo1.github.io/jikoro/copyright/english11.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">12/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese12').play()"><b>ごめんなさい。
-<br>Gomen'nasai
-</b></button>
-    <audio id="japanese12" src="https://wisdombot.000webhostapp.com/copyright/japanese12.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese12').play()"><b>ごめんなさい。
+<br>Gomen'nasai</b></button>
+    <audio id="japanese12" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese12.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english12').play()" >Sorry</button>
-    <audio id="english12" src="https://wisdombot.000webhostapp.com/copyright/english12.wav"></audio>
-    
+    <audio id="english12" src="https://wisdomokubo1.github.io/jikoro/copyright/english12.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">13/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese13').play()"><b>お願いします。
-<br>Onegaishimasu
-</b></button>
-    <audio id="japanese13" src="https://wisdombot.000webhostapp.com/copyright/japanese13.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese13').play()"><b>お願いします。
+<br>Onegaishimasu</b></button>
+    <audio id="japanese13" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese13.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english13').play()" >Please</button>
-    <audio id="english13" src="https://wisdombot.000webhostapp.com/copyright/english13.wav"></audio>
-    
+    <audio id="english13" src="https://wisdomokubo1.github.io/jikoro/copyright/english13.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">14/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese14').play()"><b>ありがとうございます。
-<br>Arigatōgozaimasu
-</b></button>
-    <audio id="japanese14" src="https://wisdombot.000webhostapp.com/copyright/japanese14.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese14').play()"><b>ありがとうございます。
+<br>Arigatōgozaimasu</b></button>
+    <audio id="japanese14" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese14.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english14').play()" >Thank you</button>
-    <audio id="english14" src="https://wisdombot.000webhostapp.com/copyright/english14.wav"></audio>
-    
+    <audio id="english14" src="https://wisdomokubo1.github.io/jikoro/copyright/english14.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">15/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese15').play()"><b>どういたしまして。
-<br>Dōitashimashite
-</b></button>
-    <audio id="japanese15" src="https://wisdombot.000webhostapp.com/copyright/japanese15.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese15').play()"><b>どういたしまして。
+<br>Dōitashimashite</b></button>
+    <audio id="japanese15" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese15.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english15').play()" >You're welcome</button>
-    <audio id="english15" src="https://wisdombot.000webhostapp.com/copyright/english15.wav"></audio>
-    
+    <audio id="english15" src="https://wisdomokubo1.github.io/jikoro/copyright/english15.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">16/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('japanese16').play()"><b>手伝ってもらえますか
-<br>Tetsudatte moraemasu ka?
-</b></button>
-    <audio id="japanese16" src="https://wisdombot.000webhostapp.com/copyright/japanese16.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese16').play()"><b>手伝ってもらえますか
+<br>Tetsudatte moraemasu ka?</b></button>
+    <audio id="japanese16" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese16.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english16').play()" >Can you help me?</button>
-    <audio id="english16" src="https://wisdombot.000webhostapp.com/copyright/english16.wav"></audio>
-    
+    <audio id="english16" src="https://wisdomokubo1.github.io/jikoro/copyright/english16.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">17/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:23;font-family:serif;" onclick="document.getElementById('japanese17').play()"><b>あなたの名前は何ですか
-<br>Anata no namae wa nanidesu ka?
-</b></button>
-    <audio id="japanese17" src="https://wisdombot.000webhostapp.com/copyright/japanese17.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese17').play()"><b>あなたの名前は何ですか
+<br>Anata no namae wa nanidesu ka?</b></button>
+    <audio id="japanese17" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese17.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english17').play()" >What's your name?</button>
-    <audio id="english17" src="https://wisdombot.000webhostapp.com/copyright/english17.wav"></audio>
-    
+    <audio id="english17" src="https://wisdomokubo1.github.io/jikoro/copyright/english17.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">18/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese18').play()"><b>また会いましょう。
-<br>Mata aimashou
-</b></button>
-    <audio id="japanese18" src="https://wisdombot.000webhostapp.com/copyright/japanese18.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese18').play()"><b>また会いましょう。
+<br>Mata aimashou</b></button>
+    <audio id="japanese18" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese18.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english18').play()" >See you later</button>
-    <audio id="english18" src="https://wisdombot.000webhostapp.com/copyright/english18.wav"></audio>
-    
+    <audio id="english18" src="https://wisdomokubo1.github.io/jikoro/copyright/english18.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">19/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese19').play()"><b>気をつけてください。
-<br>Kiwotsukete kudasai
-</b></button>
-    <audio id="japanese19" src="https://wisdombot.000webhostapp.com/copyright/japanese19.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese19').play()"><b>気をつけてください。
+<br>Kiwotsukete kudasai</b></button>
+    <audio id="japanese19" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese19.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english19').play()" >Take Care</button>
-    <audio id="english19" src="https://wisdombot.000webhostapp.com/copyright/english19.wav"></audio>
-    
+    <audio id="english19" src="https://wisdomokubo1.github.io/jikoro/copyright/english19.wav"></audio>
+</li>
+<br>
 
-<br><br>
-
-<p style="color:white;">20/~</p>
-              
-    
-        <button style="background-color:green;color:white;font-size:25;font-family:serif;" onclick="document.getElementById('japanese20').play()"><b>さようなら。
-<br>Sayōnara
-</b></button>
-    <audio id="japanese20" src="https://wisdombot.000webhostapp.com/copyright/japanese20.wav"></audio>
+<li class="nigerianlanguages">
+            <button style="background-color:green;color:white;font-family:serif;" onclick="document.getElementById('japanese20').play()"><b>さようなら。
+<br>Sayōnara</b></button>
+    <audio id="japanese20" src="https://wisdomokubo1.github.io/jikoro/copyright/japanese20.wav"></audio>
 
                <button style="background-color:#FF3A3937" onclick="document.getElementById('english20').play()" >Goodbye</button>
-    <audio id="english20" src="https://wisdombot.000webhostapp.com/copyright/english20.wav"></audio>
-    
+    <audio id="english20" src="https://wisdomokubo1.github.io/jikoro/copyright/english20.wav"></audio>
+</li>
+
+
+</ol>
 
 <br><br>
 
-   <a href="https:wisdomokubo1.github.io/jikoro/hausaquiz1.html"><button style="background-color:white;color:black;">Learn 10 Japanese Words / Phrases</button></a>
+   <a href="https:wisdomokubo1.github.io/jikoro/japanesequiz1.html"><button style="background-color:white;color:black;">Learn 10 Japanese Words / Phrases</button></a>
    
    <br><br>
 
@@ -452,18 +393,19 @@
     </div>
 
 
+
   </section>
-  <!-- End Hero -->
+
 
 
 <!--
  <div class="bottom-nav">
      
-        <a href="igboquiz.html">
+        <a href="japanesequiz.html">
         <button onclick="alert('Back!')">Back</button>
         </a>
         
-    <a href="igboquiz2.html">
+    <a href="japanesequiz2.html">
         <button onclick="alert('Next Question!')">Next</button>
         </a>
     </div>
@@ -478,7 +420,7 @@
         
           <script>
         function playAudio() {
-            var audio = document.getElementById('igbo1').value;
+            var audio = document.getElementById('japanese1').value;
             audio.play();
         }
     </script>
@@ -515,6 +457,11 @@
     
 <script src="./languages.js"></script>
 <script src="./nigerianlanguages.js"></script>
+<script src="./hausalanguage.js"></script>
+<script src="./yorubalanguage.js"></script>
+<script src="./igbolanguage.js"></script>
+<script src="./okrikalanguage.js"></script>
+<script src="./swahililanguage.js"></script>
 
     <script src="./thinkroom_files/smtp.js.download"></script>
     <!-- Vendor JS Files -->
