@@ -86,6 +86,74 @@
       color: #FFFFFF;
       background-color: #00A4BD;
     }
+    
+        /* Popup background overlay */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+    /* Popup background overlay false*/
+  .popup-overlayfalse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Popup box */
+  .popup {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: center;
+  }
+  
+    /* Popup box False*/
+  .popupfalse {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: center;
+  }
+    
+  /* Close button */
+  .popup button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+   /* Close button False*/
+  .popupfalse button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   </style>
 
 
@@ -154,13 +222,13 @@
             <h2>Select the correct option below</h2>
             
     
-                <button style="background-color:#FF3A3937" id="rightButton" onclick="changeColorAndPlayAudio()">Please</button>
+                <button style="background-color:#FF3A3937" id="rightButton" onclick="changeColorAndPlayAudio();showPopup();">Please</button>
     <audio id="audio1" src="https://wisdomokubo1.github.io/jikoro/copyright/czech13.wav"></audio>
     
-                   <button style="background-color:#FF3A3937" id="wrongButton" onclick="changeColorAndPlayAudioFalse()">Thank you</button>
+                   <button style="background-color:#FF3A3937" id="wrongButton" onclick="changeColorAndPlayAudioFalse();showPopupFalse();">Thank you</button>
     <audio id="audio2" src="https://wisdomokubo1.github.io/jikoro/copyright/czech14.wav"></audio>
     
-                   <button style="background-color:#FF3A3937" id="wrongButtonTwo" onclick="changeColorAndPlayAudioStillFalse()">Sorry</button>
+                   <button style="background-color:#FF3A3937" id="wrongButtonTwo" onclick="changeColorAndPlayAudioStillFalse();showPopupFalse();">Sorry</button>
     <audio id="audio3" src="https://wisdomokubo1.github.io/jikoro/copyright/czech12.wav"></audio>
     
     
@@ -179,6 +247,19 @@
     <u><b>Next</b></u>
 </p>
 </a>
+
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <p>Superb! Go to Next</p>
+    <button onclick="closePopup()";style="back">OK</button>
+  </div>
+</div>
+
+<div class="popup-overlay" id="popupOverlayFalse">
+  <div class="popupfalse">
+    <p>Wrong! Try again</p>
+    <button onclick="closePopupFalse()">OK</button>
+  </div>
 
 <br><br><br><br>
 
@@ -245,6 +326,28 @@
             audio.play();
         }
     </script>
+    
+  <script>
+  function showPopup() {
+    document.getElementById("popupOverlay").style.display = "flex";
+  }
+
+  function closePopup() {
+    document.getElementById("popupOverlay").style.display = "none";
+  }
+</script>
+
+
+
+    <script>
+  function showPopupFalse() {
+    document.getElementById("popupOverlayFalse").style.display = "flex";
+  }
+
+  function closePopupFalse() {
+    document.getElementById("popupOverlayFalse").style.display = "none";
+  }
+</script>
     
     
 <script src="./languages.js"></script>
