@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="./thinkroom_files/styles.css">
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Premium Lessons</title>
+  <meta content="Persian | p2" name="description">
+  <meta content="jikoro, sophia, learn, asian, languages, persian, app, iran, top"
+    name="keywords">
+
+  <!-- Favicons -->
+  <link href="/icon.png" type="image/png" rel="icon">
+  <link href="/favicon-32x32.png" rel="favicon-32x32">
+  <link href="/favicon-16x16.png" rel="favicon-16x16">
+  <link href="/android-chrome-512x512.png" rel="icon">
+  <link href="/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/favicon.ico" rel="icon">
+
+
+  <!-- Google Fonts -->
+  <link href="./thinkroom_files/css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com/">
+  <link href="./thinkroom_files/css2" rel="stylesheet">
+  <link href="./thinkroom_files/css2(1)" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="./thinkroom_files/bootstrap.min.css" rel="stylesheet">
+  <link href="./thinkroom_files/icofont.min.css" rel="stylesheet">
+  <link href="./thinkroom_files/boxicons.min.css" rel="stylesheet">
+  <link href="./thinkroom_files/venobox.css" rel="stylesheet">
+  <link href="./thinkroom_files/remixicon.css" rel="stylesheet">
+  <link href="./thinkroom_files/owl.carousel.min.css" rel="stylesheet">
+  <link href="./thinkroom_files/aos.css" rel="stylesheet">
+
+
+
+
+  <!-- Template Main CSS File -->
+  <link href="./thinkroom_files/style.css" rel="stylesheet">
+  <link href="./thinkroom_files/css(1)" rel="stylesheet">
+  <!-- career section -->
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./thinkroom_files/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180524052-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-180524052-1');
+  </script>
+
+  <style>
+    dropdown {
+      display: inline-block;
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: relative;
+      width: 100%;
+      overflow: auto;
+      box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: #000000;
+      padding: 5px;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      color: #FFFFFF;
+      background-color: #00A4BD;
+    }
+    
+      df-messenger {
+   --df-messenger-bot-message: black;
+   --df-messenger-button-titlebar-color: black;
+   --df-messenger-chat-background-color: black;
+   --df-messenger-font-color: white;
+   --df-messenger-send-icon: blue;
+   --df-messenger-user-message: grey;
+  }
+  </style>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+<df-messenger
+  chat-icon="https:&#x2F;&#x2F;wisdomokubo1.github.io&#x2F;jikoro&#x2F;headsetwhite.png"
+  intent="WELCOME"
+  chat-title="WisdomBot"
+  agent-id="54b7cbf2-9067-40d3-ac6b-1e1e48998517"
+  language-code="en"
+  
+></df-messenger>
+
+</head>
+<body>
+    <div id="access-form">
+        <br><br><br><br>
+        <br><br><br><br>
+        <center>
+        <h4>Access Premium Lessons</h4>
+        </center>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button onclick="checkAccess()">Continue</button>
+        <center>
+        <p>Not yet a Premium Subcriber?</p>
+        <a href="https://selar.co/i41414">
+        <button style="border-radius:25px;background-color:white;color:black;">Get Started</button>
+        </a>
+        </center>
+    </div>
+
+    <div id="restricted-content" style="display: none;">
+        <br><br>
+        <center>
+        <h3>Welcome!</h3>
+        </center>
+        <p>Explore All Premium Persian Courses, Quizzes and more.</p>
+    
+        <br><br><br>
+        
+        
+    </div>
+    <div id="access-denied" style="display: none;">
+        <br><br><br><br>
+        <br><br><br><br>
+        <center>
+        <h3>Access Denied</h3>
+        </center>
+        <p>Subscribe to Premium for Access to Premium Lessons, Quizzes and additional features.</p>
+        <br>
+        <a href="https://selar.co/i41414">
+        <button>Subscribe to Premium</button>
+        </a>
+    </div>
+
+    <script src="access-control.js"></script>
+</body>
+</html>
