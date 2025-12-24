@@ -2,7 +2,8 @@
 const allowedEmails = [
     "user1@example.com",
     "user2@example.com",
-    "user3@example.com"
+    "user3@example.com",
+    "ezeanichimdalu@gmail.com"
 ];
 
 function checkAccess() {
