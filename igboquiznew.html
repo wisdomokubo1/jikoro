@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophia: AI Languages Tutor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: black;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2s infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6 sm:py-10 flex-grow w-full">
+
+        <!-- 1. SETUP SCREEN -->
+        <section id="setup-screen" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Master Vocabulary Through <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-900">Active Recall</span>
+                </h2>
+                        <button onclick="app.selectDeck('igb-en')"  class="whitespace-nowrap px-20 py-4 bg-green-700 hover:bg-green-900 text-white font-semibold text-sm rounded-xl transition-all shadow-md hover:shadow-green-500/30">Start Igbo Quiz <i class="fa-solid fa-arrow-right ml-1 text-xs"></i></button>
+                    <br>
+            </div>
+
+
+            <!-- Custom Deck Shortcut Banner -->
+            <div class="bg-gradient-to-r from-amber-900 to-amber-500 rounded-2xl p-6 text-white flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
+                <div class="space-y-1 text-center md:text-left">
+                    <h4 class="font-bold text-lg flex items-center justify-center md:justify-start gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-blue-400"></i> Custom Vocabulary List
+                    </h4>
+                    <p class="text-slate-300 text-sm">Have specific words you want to study for an exam or trip? Paste or create your own custom set.</p>
+                </div>
+                <button onclick="app.showScreen('custom-editor')" class="whitespace-nowrap px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-semibold text-sm rounded-xl transition-all shadow-md hover:shadow-indigo-500/30">
+                    Build Custom Deck
+                </button>
+            </div>
+        </section>
+
+
+        <!-- 2. QUIZ SCREEN -->
+        <section id="quiz-screen" class="hidden space-y-6">
+            <!-- Top Dashboard Stats -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <button onclick="app.endSession()" class="text-slate-400 hover:text-red-500 p-2 rounded-lg hover:bg-slate-100 transition-colors" title="End Session">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                    <div>
+                        <span id="deck-title-badge" class="text-xs font-bold uppercase tracking-wider text-green-600 bg-green-50 px-2.5 py-1 rounded-md">Deck Name</span>
+                    </div>
+                </div>
+
+                <!-- Live Performance Indicators -->
+                <div class="flex items-center space-x-6 sm:space-x-8 text-center">
+                    <div>
+                        <div class="text-xs text-slate-400 font-medium uppercase tracking-wider">Score</div>
+                        <div id="stat-score" class="text-lg font-extrabold text-slate-800">0</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 font-medium uppercase tracking-wider">Streak</div>
+                        <div id="stat-streak" class="text-lg font-extrabold text-amber-500 flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-fire text-sm animate-bounce"></i> <span>0</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400 font-medium uppercase tracking-wider">Accuracy</div>
+                        <div id="stat-accuracy" class="text-lg font-extrabold text-slate-800">100%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Question Card -->
+            <div id="question-card" class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-lg text-center space-y-6 relative overflow-hidden transition-all">
+                
+                <!-- Prompt Header -->
+                <div class="space-y-2">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Translate this term</div>
+                    <div class="flex items-center justify-center gap-3">
+                        <h2 id="question-term" class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">Bonjour</h2>
+                        <button id="play-question-audio-btn" onclick="app.playQuestionAudio()" class="w-12 h-12 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition-all shadow-md active:scale-95" title="Play Prompt Audio">
+                            <i class="fa-solid fa-play text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Answer Choices Grid (2x2) -->
+                <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-4 max-w-2xl mx-auto">
+                    <!-- Option buttons dynamically generated -->
+                </div>
+
+                <!-- Action Footer (Next Button / Feedback area) -->
+                <div id="feedback-bar" class="hidden pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div id="feedback-text" class="text-sm font-semibold flex items-center gap-2">
+                        <!-- Message populated dynamically -->
+                    </div>
+                    <button id="next-btn" onclick="app.nextQuestion()" class="w-full sm:w-auto px-8 py-3 bg-green-600 hover:bg-green-700 active:scale-95 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
+                        <span>Next Question</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3. CUSTOM DECK EDITOR SCREEN -->
+        <section id="custom-editor-screen" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Vocabulary & Audio Manager</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Edit terms, attach custom audio links, or record voice notes directly.</p>
+                </div>
+                <button onclick="app.showScreen('setup')" class="text-sm font-semibold text-slate-600 hover:text-slate-800 bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl transition-all">
+                    Back to Setup
+                </button>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+                <!-- Deck Details -->
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Deck Title</label>
+                        <input type="text" id="custom-deck-name" placeholder="e.g. Italian Audio Phrases" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm font-semibold">
+                    </div>
+                </div>
+
+                <!-- Interactive Vocabulary Table / Form Editor -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-xs font-bold uppercase text-slate-500">Vocabulary Items & Recorded Audio</label>
+                        <button onclick="app.addEditorRow()" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> Add Word
+                        </button>
+                    </div>
+
+                    <div id="editor-rows-container" class="space-y-4 max-h-[500px] overflow-y-auto pr-1">
+                        <!-- Dynamic Editable Cards inserted here -->
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <button onclick="app.loadSampleIntoEditor()" class="text-xs font-semibold text-slate-500 hover:text-indigo-600 transition-colors">
+                        <i class="fa-solid fa-file-import mr-1"></i> Load Demo Audio Sample Deck
+                    </button>
+                    <button onclick="app.saveCustomDeckAndStart()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                        Save & Play Deck
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 4. SESSION SUMMARY SCREEN -->
+        <section id="summary-screen" class="hidden space-y-6">
+            <div class="text-center space-y-2">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 text-amber-500 text-3xl mb-2">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold text-white">Session Complete!</h2>
+                <p class="text-sm text-white">Great work! Here is how you performed during this round.</p>
+            </div>
+
+            <!-- Performance Stats Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center shadow-sm">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Final Score</div>
+                    <div id="sum-score" class="text-2xl font-black text-slate-800 mt-1">0</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center shadow-sm">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Accuracy</div>
+                    <div id="sum-accuracy" class="text-2xl font-black text-indigo-600 mt-1">0%</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center shadow-sm">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Longest Streak</div>
+                    <div id="sum-streak" class="text-2xl font-black text-amber-500 mt-1">0</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl text-center shadow-sm">
+                    <div class="text-xs font-bold text-slate-400 uppercase">Questions</div>
+                    <div id="sum-total" class="text-2xl font-black text-slate-800 mt-1">0</div>
+                </div>
+            </div>
+
+            <!-- Unlocked Badges Section -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+                <h3 class="font-bold text-sm text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-award text-indigo-500"></i> Session Achievements
+                </h3>
+                <div id="badges-container" class="flex flex-wrap gap-2">
+                    <!-- Badges injected via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Missed Terms Review Section -->
+            <div id="missed-terms-card" class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+                <h3 class="font-bold text-sm text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-rose-500"></i> Terms To Review (<span id="missed-count">0</span>)
+                </h3>
+                <div id="missed-list" class="divide-y divide-slate-100 max-h-48 overflow-y-auto pr-1">
+                    <!-- Dynamic review list -->
+                </div>
+            </div>
+
+            <!-- Actions Footer -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+                <button onclick="app.restartSession()" class="w-full sm:w-auto px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold text-sm rounded-xl shadow-md transition-all">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Play Again
+                </button>
+                <button onclick="app.showScreen('setup')" class="w-full sm:w-auto px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-sm rounded-xl transition-all">
+                    Choose Another Deck
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        /**
+         * Preloaded Vocabulary Datasets with Sample Audio Tracks
+         */
+        const PRELOADED_DECKS = {
+            'igb-en': {
+                title: 'Igbo → English (Audio)',
+                pairs: [
+                    { term: 'Kedu ka ị mere', translation: 'How are you', termAudio: "https://wisdomokubo1.github.io/jikoro/copyright/igbo1.mp3", optAudio: '' },
+                    { term: 'Kedu nke na-eme', translation: "What's up", termAudio: "https://wisdomokubo1.github.io/jikoro/copyright/igbo2.m4a", optAudio: '' },
+                    { term: 'Ọ dị mma izute gị', translation: 'Nice to meet you', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo3.m4a', optAudio: '' },
+                    { term: 'Ebee ka i si', translation: 'Where are you from?', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo4.m4a', optAudio: '' },
+                    { term: 'Kedu ka ọ si aga', translation: "How's it going", termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo5.m4a', optAudio: '' },
+                    { term: 'Kedu ihe ị na-eme', translation: 'What do you do?', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo6.m4a', optAudio: '' },
+                    { term: 'Amaghị m', translation: "I don't know", termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo7.m4a', optAudio: '' },
+                    { term: "Nke ahụ na-akpali mmụọ", translation: "That's interesting", termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo8.m4a', optAudio: '' },
+                    { term: 'Ekwenyere m', translation: 'I agree', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo9.m4a', optAudio: '' },
+                    { term: 'Ekwetaghị m', translation: 'I disagree', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo10.m4a', optAudio: '' },
+                    { term: 'Cheregodi', translation: 'Excuse me', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo11.m4a', optAudio: '' },
+                    { term: 'Ndo', translation: 'Sorry', termAudio: 'https://wisdomokubo1.github.io/jikoro/copyright/igbo12.m4a', optAudio: '' },
+                    { term:'Biko',
+                    translation: 'Please',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo13.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Daalụ',
+                    translation: 'Thank you',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo14.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ana m asị gị nnọọ',
+                    translation: "You're welcome",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo15.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Ị nwere ike ị nyere m aka",
+                    translation: 'Can you help me?',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo16.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu aha gị',
+                    translation: "What's your name?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo17.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ka ahụ ma emechaa',
+                    translation: 'See you later',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo18.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ledo onwe gị',
+                    translation: 'Take care',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo19.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ijeoma',
+                    translation: 'Goodbye',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo20.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Nwee ọmarịcha ụbọchị',
+                    translation: 'Have a great day',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo21.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ dị m nwute ịnụ nke ahụ',
+                    translation: "I'm sorry to hear that",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo22.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Nsogbu adịghị',
+                    translation: 'No problem',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo23.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu nke pụtara ọhụrụ',
+                    translation: "What's new?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo24.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu ka ụbọchị gị mere',
+                    translation: 'How was your day?',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo25.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Adị m mma, daalụ',
+                    translation: "I'm fine, Thank you",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo26.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ bụ ihe anụrị',
+                    translation: "It's a pleasure",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo27.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu ka ihu igwe dị',
+                    translation: "How's the weather?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo28.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ebee ka i bi',
+                    translation: 'Where do you live?',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo29.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu ihe kacha amasị gị',
+                    translation: "What's your favorite",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo30.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Aghọtaghị m',
+                    translation: "I don't understand",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo31.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ị nwere ike ikwugharị ihe ahụ',
+                    translation: 'Could you repeat that',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo32.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Hapụzie',
+                    translation: 'Never mind',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo33.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'O doghi m anya',
+                    translation: "I'm not sure",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo34.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu ihe na-akụ',
+                    translation: 'What time is it',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo35.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ka m chee echiche',
+                    translation: 'Let me think',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo36.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Nke ahụ bụ ezi echiche",
+                    translation: "That's a good idea",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo37.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ahụ adịchaghị m mma',
+                    translation: "I'm not feeling well",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo38.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu ihe ọ bụ',
+                    translation: "What's the matter?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo39.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ bụ ogologo akụkọ',
+                    translation: "It's a long story",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo40.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Kedu ihe dị n'uche gị",
+                    translation: "What's on your mind?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo41.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Gwa m ọzọ',
+                    translation: 'Tell me more',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo42.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Enwere m ọrụ n'aka n'ezie",
+                    translation: "I'm really busy",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo43.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ekele',
+                    translation: 'Congratulations',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo44.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Enwere m ekele maka nke ahụ',
+                    translation: 'I appreciate that',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo45.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ masịrị gị',
+                    translation: 'Do you like',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo46.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu maka gị',
+                    translation: 'How about you?',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo47.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ dịzịrị gị',
+                    translation: "It's up to you",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo48.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ana m egwu egwu',
+                    translation: "I'm just kidding",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo49.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Nke ahụ na-akpa ọch',
+                    translation: "That's funny",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo50.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Agụụ na-agụ m',
+                    translation: "I'm hungry",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo51.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Mmiri na-agụ m',
+                    translation: "I'm thirsty",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo52.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Enwere m ike ịnweta',
+                    translation: 'Can I have',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo53.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Gịnị bụ maka nri abalị',
+                    translation: "What's for dinner",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo54.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ na-atọ ụtọ',
+                    translation: "It's delicious",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo55.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Ahụrụ m ya n'anya",
+                    translation: 'I love it',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo56.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ masịghị m',
+                    translation: "I don't like it",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo57.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Gịnị bụ ọnụ ahịa',
+                    translation: "What's the price?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo58.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ebee ka ime ụlọ ịwụ ahụ dị',
+                    translation: "Where's the bathroom?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo59.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Achọrọ m ihu ọma',
+                    translation: 'I need a favor',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo60.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Efuru M efu',
+                    translation: "I'm lost",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo61.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Ị nwere ike igosi m",
+                    translation: "Can you show me?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo62.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Obi dị m anụrị',
+                    translation: "I'm excited",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo63.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ike gwụrụ m',
+                    translation: "I'm tired",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo64.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ịnọ nkịtị na-agwụ m ike',
+                    translation: "I'm bored",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo65.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ka anyị nọrọ',
+                    translation: "Let's hang out",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo66.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Kedu ihe ntụrụndụ gị",
+                    translation: "What's your hobby?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo67.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ị nwere anụ ụlọ',
+                    translation: 'Do you have pets?',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo68.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'A na m atụ ụche gị',
+                    translation: 'I miss you',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo69.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ dị m nwute maka ọnwụ gị',
+                    translation: "I'm sorry for your loss",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo70.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu akụkọ kacha ọhụrụ',
+                    translation: "What's the latest news?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo71.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Kedu ka izu ụka gị mere?",
+                    translation: "How was your weekend?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo72.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Oteaka anyị hụrụ',
+                    translation: 'Long time no see',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo73.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ bụ obere ụwa',
+                    translation: "It's a small world",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo74.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Enweghị m ike ikwere ya',
+                    translation: "I can't believe it",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo75.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ejim gi eme onu',
+                    translation: "I'm proud of you",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo76.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Enweghị m mmasị",
+                    translation: "I'm not interested",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo77.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Gịnị bụ atụmatụ',
+                    translation: "What's the plan?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo78.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ka anyị mee ya',
+                    translation: "Let's do it",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo79.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Jisie ike",
+                    translation: 'Good luck',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo80.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Jiri ya nwayọọ',
+                    translation: 'Take it easy',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo81.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Nke ahụ dị egwu',
+                    translation: "That's awesome",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo82.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Nke ahụ dị egwu',
+                    translation: "That's terrible",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo83.m4a',
+                    optAudio: ''
+                    },
+                    { term: '̀Lee ihe ndabara',
+                    translation: 'What a coincidence',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo84.m4a',
+                    optAudio: ''
+                    },
+                    { term: "Achọghị m ịma",
+                    translation: "I don't care",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo85.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Adana mba',
+                    translation: 'Never give up',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo86.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Enweghị m ike ichere',
+                    translation: "I can't wait",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo87.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ka anyị mee nkwekọrịta',
+                    translation: "Let's make a deal",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo88.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'O doghi m anya',
+                    translation: "I'm not sure",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo89.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Tụkwasa m obi',
+                    translation: 'Trust me',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo90.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Enwere m ajụjụ',
+                    translation: 'I have a question',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo91.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Gịnị bụ nsogbu',
+                    translation: "What's the problem?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo92.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ bụ eziokwu',
+                    translation: "Are you serious?",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo93.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ masịrị m',
+                    translation: "I'm impressed",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo94.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Nke ahụ dị egwu',
+                    translation: "That's fantastic",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo95.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Kedu ka i siri mee nke ahụ',
+                    translation: 'How did you do that?',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo96.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ị na-egwu egwu',
+                    translation: "You're kidding",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo97.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Adịbeghị m njikere',
+                    translation: "I'm not ready",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo98.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ dabere',
+                    translation: 'It depends',
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo99.m4a',
+                    optAudio: ''
+                    },
+                    { term: 'Ọ gbagwojuru anya',
+                    translation: "It's complicated",
+                    termAudio:'https://wisdomokubo1.github.io/jikoro/copyright/igbo100.m4a',
+                    optAudio: ''
+                    }
+
+                ]
+            },
+
+        };
+
+        /**
+         * Sound Effects Generator (Web Audio API)
+         */
+        class SoundFX {
+            constructor() {
+                this.ctx = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+            }
+
+            playCorrect() {
+                if (!app.audioEnabled) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now); 
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); 
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); 
+
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.35);
+            }
+
+            playIncorrect() {
+                if (!app.audioEnabled) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now); 
+                osc.frequency.setValueAtTime(180, now + 0.1);
+
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.3);
+            }
+        }
+
+        /**
+         * Main Application Controller Class
+         */
+        class LingoPulseApp {
+            constructor() {
+                this.audioEnabled = true;
+                this.autoPlayQuestionAudio = true;
+                this.soundFX = new SoundFX();
+
+                this.currentDeck = null;
+                this.audioElement = new Audio();
+                
+                // Quiz Session State
+                this.score = 0;
+                this.streak = 0;
+                this.maxStreak = 0;
+                this.totalAnswered = 0;
+                this.correctAnswers = 0;
+                this.currentQuestion = null;
+                this.isAnswered = false;
+
+                // Track missed terms
+                this.missedTermsMap = new Map();
+
+                // Recorder State
+                this.mediaRecorder = null;
+                this.audioChunks = [];
+                this.activeRecordingTarget = null;
+            }
+
+            init() {
+                this.showScreen('setup');
+                this.updateAudioIcons();
+            }
+
+            showScreen(screenId) {
+                const screens = ['setup', 'quiz', 'custom-editor', 'summary'];
+                screens.forEach(id => {
+                    const el = document.getElementById(`${id}-screen`);
+                    if (el) {
+                        if (id === screenId) {
+                            el.classList.remove('hidden');
+                        } else {
+                            el.classList.add('hidden');
+                        }
+                    }
+                });
+
+                if (screenId === 'custom-editor') {
+                    this.renderEditorRows();
+                }
+            }
+
+            toggleAudio() {
+                this.audioEnabled = !this.audioEnabled;
+                this.updateAudioIcons();
+            }
+
+            toggleAutoplay() {
+                this.autoPlayQuestionAudio = !this.autoPlayQuestionAudio;
+                this.updateAudioIcons();
+            }
+
+            updateAudioIcons() {
+                const audioIcon = document.getElementById('audio-icon');
+                const autoplayIcon = document.getElementById('autoplay-icon');
+
+                if (this.audioEnabled) {
+                    audioIcon.className = "fa-solid fa-volume-high text-lg text-slate-700";
+                } else {
+                    audioIcon.className = "fa-solid fa-volume-xmark text-lg text-slate-400";
+                }
+
+                if (this.autoPlayQuestionAudio) {
+                    autoplayIcon.className = "fa-solid fa-play-circle text-lg text-indigo-600";
+                } else {
+                    autoplayIcon.className = "fa-solid fa-pause-circle text-lg text-slate-400";
+                }
+            }
+
+            playAudioUrl(url) {
+                if (!url) {
+                    alert('No audio recording or link attached to this item.');
+                    return;
+                }
+                this.audioElement.src = url;
+                this.audioElement.play().catch(err => {
+                    console.warn("Audio playback blocked or invalid format:", err);
+                    alert("Unable to play audio URL. Please verify audio link or format.");
+                });
+            }
+
+            playQuestionAudio() {
+                if (this.currentQuestion && this.currentQuestion.pair.termAudio) {
+                    this.playAudioUrl(this.currentQuestion.pair.termAudio);
+                } else {
+                    alert("No audio recorded/linked for this question.");
+                }
+            }
+
+            selectDeck(deckKey) {
+                if (PRELOADED_DECKS[deckKey]) {
+                    this.currentDeck = PRELOADED_DECKS[deckKey];
+                    this.startSession();
+                }
+            }
+
+            startSession() {
+                if (!this.currentDeck || !this.currentDeck.pairs || this.currentDeck.pairs.length < 4) {
+                    alert('A minimum of 4 vocabulary pairs is required to start the quiz.');
+                    return;
+                }
+
+                this.score = 0;
+                this.streak = 0;
+                this.maxStreak = 0;
+                this.totalAnswered = 0;
+                this.correctAnswers = 0;
+                this.missedTermsMap.clear();
+
+                document.getElementById('deck-title-badge').innerText = this.currentDeck.title;
+                this.updateStatsUI();
+
+                this.showScreen('quiz');
+                this.nextQuestion();
+            }
+
+            restartSession() {
+                this.startSession();
+            }
+
+            nextQuestion() {
+                this.isAnswered = false;
+                document.getElementById('feedback-bar').classList.add('hidden');
+
+                const pairs = this.currentDeck.pairs;
+                const targetPair = pairs[Math.floor(Math.random() * pairs.length)];
+
+                const distractors = [];
+                const otherPairs = pairs.filter(p => p.translation !== targetPair.translation);
+
+                while (distractors.length < 3 && otherPairs.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * otherPairs.length);
+                    const picked = otherPairs.splice(randomIndex, 1)[0];
+                    distractors.push(picked);
+                }
+
+                const options = [targetPair, ...distractors];
+                this.shuffleArray(options);
+
+                this.currentQuestion = {
+                    pair: targetPair,
+                    options: options
+                };
+
+                document.getElementById('question-term').innerText = targetPair.term;
+                
+                const qAudioBtn = document.getElementById('play-question-audio-btn');
+                if (targetPair.termAudio) {
+                    qAudioBtn.className = "w-12 h-12 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition-all shadow-md active:scale-95";
+                } else {
+                    qAudioBtn.className = "w-12 h-12 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center cursor-not-allowed";
+                }
+
+                this.renderOptionsGrid();
+
+                if (this.autoPlayQuestionAudio && targetPair.termAudio) {
+                    setTimeout(() => this.playQuestionAudio(), 250);
+                }
+            }
+
+            renderOptionsGrid() {
+                const grid = document.getElementById('options-grid');
+                grid.innerHTML = '';
+
+                this.currentQuestion.options.forEach((optItem) => {
+                    const container = document.createElement('div');
+                    container.className = "w-full flex items-center gap-2";
+
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn flex-grow p-4 text-left font-semibold text-slate-700 bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 rounded-xl transition-all flex items-center justify-between group";
+                    
+                    btn.innerHTML = `
+                        <span class="text-sm sm:text-base">${optItem.translation}</span>
+                        <span class="w-6 h-6 rounded-full border border-slate-300 group-hover:border-indigo-500 flex items-center justify-center text-xs text-transparent group-hover:text-indigo-500 transition-all">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+                    `;
+
+                    btn.onclick = () => this.handleAnswer(optItem.translation, btn);
+
+                    // Option Audio Play Button
+                    const audioBtn = document.createElement('button');
+                    if (optItem.optAudio) {
+                        audioBtn.className = "p-3 rounded-xl bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-600 transition-colors";
+                        audioBtn.title = "Listen Option Audio";
+                        audioBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            this.playAudioUrl(optItem.optAudio);
+                        };
+                        audioBtn.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
+                    } else {
+                        audioBtn.className = "p-3 rounded-xl bg-slate-50 text-slate-300 cursor-not-allowed";
+                        audioBtn.title = "No audio available";
+                        audioBtn.innerHTML = `<i class="fa-solid fa-volume-off"></i>`;
+                    }
+
+                    container.appendChild(btn);
+                    container.appendChild(audioBtn);
+                    grid.appendChild(container);
+                });
+            }
+
+            handleAnswer(selectedOption, clickedBtn) {
+                if (this.isAnswered) return;
+                this.isAnswered = true;
+
+                const correctTranslation = this.currentQuestion.pair.translation;
+                const isCorrect = (selectedOption === correctTranslation);
+
+                this.totalAnswered++;
+
+                const allOptionBtns = document.querySelectorAll('.option-btn');
+                allOptionBtns.forEach(btn => {
+                    btn.disabled = true;
+                    btn.classList.remove('hover:bg-indigo-50', 'hover:border-indigo-400');
+                    
+                    if (btn.innerText.includes(correctTranslation)) {
+                        btn.className = "option-btn flex-grow p-4 text-left font-semibold text-emerald-800 bg-emerald-50 border-2 border-emerald-500 rounded-xl flex items-center justify-between";
+                        btn.querySelector('span:last-child').className = "w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs";
+                    }
+                });
+
+                const feedbackBar = document.getElementById('feedback-bar');
+                const feedbackText = document.getElementById('feedback-text');
+                feedbackBar.classList.remove('hidden');
+
+                if (isCorrect) {
+                    this.score += 10 + Math.min(this.streak * 2, 20);
+                    this.streak++;
+                    this.correctAnswers++;
+                    if (this.streak > this.maxStreak) this.maxStreak = this.streak;
+
+                    this.soundFX.playCorrect();
+
+                    clickedBtn.classList.add('animate-pulse-subtle');
+                    feedbackText.className = "text-sm font-bold text-emerald-600 flex items-center gap-2";
+                    feedbackText.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i> Correct! Excellent job.`;
+                } else {
+                    this.streak = 0;
+                    this.soundFX.playIncorrect();
+
+                    this.missedTermsMap.set(
+                        this.currentQuestion.pair.term,
+                        this.currentQuestion.pair.translation
+                    );
+
+                    clickedBtn.className = "option-btn flex-grow p-4 text-left font-semibold text-rose-800 bg-rose-50 border-2 border-rose-500 rounded-xl flex items-center justify-between animate-shake";
+                    
+                    feedbackText.className = "text-sm font-bold text-rose-600 flex items-center gap-2";
+                    feedbackText.innerHTML = `<i class="fa-solid fa-circle-xmark text-lg"></i> Incorrect. The answer is "${correctTranslation}".`;
+                }
+
+                this.updateStatsUI();
+            }
+
+            updateStatsUI() {
+                document.getElementById('stat-score').innerText = this.score;
+                document.getElementById('stat-streak').querySelector('span').innerText = this.streak;
+
+                const acc = this.totalAnswered > 0 
+                    ? Math.round((this.correctAnswers / this.totalAnswered) * 100) 
+                    : 100;
+                document.getElementById('stat-accuracy').innerText = `${acc}%`;
+            }
+
+            endSession() {
+                if (this.totalAnswered === 0) {
+                    this.showScreen('setup');
+                    return;
+                }
+
+                const accuracy = Math.round((this.correctAnswers / this.totalAnswered) * 100);
+                document.getElementById('sum-score').innerText = this.score;
+                document.getElementById('sum-accuracy').innerText = `${accuracy}%`;
+                document.getElementById('sum-streak').innerText = this.maxStreak;
+                document.getElementById('sum-total').innerText = this.totalAnswered;
+
+                this.renderSummaryBadges(accuracy);
+                this.renderMissedWords();
+
+                this.showScreen('summary');
+            }
+
+            renderSummaryBadges(accuracy) {
+                const container = document.getElementById('badges-container');
+                container.innerHTML = '';
+
+                const badges = [];
+                if (this.totalAnswered >= 10) badges.push({ name: 'Persistent Learner', icon: 'fa-bolt', color: 'bg-amber-100 text-amber-700' });
+                if (accuracy >= 90 && this.totalAnswered >= 5) badges.push({ name: 'Sharp Listener', icon: 'fa-headphones', color: 'bg-emerald-100 text-emerald-700' });
+                if (this.maxStreak >= 5) badges.push({ name: 'On Fire', icon: 'fa-fire', color: 'bg-orange-100 text-orange-700' });
+                if (badges.length === 0) badges.push({ name: 'Session Finisher', icon: 'fa-check-double', color: 'bg-indigo-100 text-indigo-700' });
+
+                badges.forEach(b => {
+                    const span = document.createElement('span');
+                    span.className = `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold text-xs ${b.color}`;
+                    span.innerHTML = `<i class="fa-solid ${b.icon}"></i> ${b.name}`;
+                    container.appendChild(span);
+                });
+            }
+
+            renderMissedWords() {
+                const list = document.getElementById('missed-list');
+                const countBadge = document.getElementById('missed-count');
+                list.innerHTML = '';
+
+                countBadge.innerText = this.missedTermsMap.size;
+
+                if (this.missedTermsMap.size === 0) {
+                    list.innerHTML = `<div class="py-4 text-center text-xs text-slate-400">Perfect round! You didn't miss any words.</div>`;
+                    return;
+                }
+
+                this.missedTermsMap.forEach((translation, term) => {
+                    const row = document.createElement('div');
+                    row.className = "py-2 flex items-center justify-between text-xs sm:text-sm";
+                    row.innerHTML = `
+                        <span class="font-bold text-slate-800">${term}</span>
+                        <span class="text-slate-500">${translation}</span>
+                    `;
+                    list.appendChild(row);
+                });
+            }
+
+            /**
+             * Vocabulary Editor & In-Browser Voice Recorder Integration
+             */
+            renderEditorRows(initialPairs = null) {
+                const container = document.getElementById('editor-rows-container');
+                container.innerHTML = '';
+
+                const pairs = initialPairs || (this.currentDeck ? this.currentDeck.pairs : [
+                    { term: 'Hola', translation: 'Hello', termAudio: '', optAudio: '' },
+                    { term: 'Gracias', translation: 'Thank you', termAudio: '', optAudio: '' },
+                    { term: 'Por favor', translation: 'Please', termAudio: '', optAudio: '' },
+                    { term: 'Adiós', translation: 'Goodbye', termAudio: '', optAudio: '' }
+                ]);
+
+                pairs.forEach((p, idx) => {
+                    this.addEditorRow(p.term, p.translation, p.termAudio, p.optAudio);
+                });
+            }
+
+            addEditorRow(term = '', translation = '', termAudio = '', optAudio = '') {
+                const container = document.getElementById('editor-rows-container');
+                const rowId = 'row-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
+
+                const div = document.createElement('div');
+                div.id = rowId;
+                div.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 relative";
+                
+                div.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase text-slate-400">Vocabulary Entry</span>
+                        <button onclick="document.getElementById('${rowId}').remove()" class="text-xs text-rose-500 hover:text-rose-700 font-semibold">
+                            <i class="fa-solid fa-trash"></i> Remove
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Question Term</label>
+                            <input type="text" value="${term}" class="row-term w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <div class="mt-2 space-y-1">
+                                <label class="block text-[11px] font-medium text-slate-400">Question Audio Link (URL or DataURI)</label>
+                                <div class="flex gap-1.5">
+                                    <input type="text" value="${termAudio}" placeholder="https://... or recording" class="row-term-audio w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-mono">
+                                    <button type="button" onclick="app.toggleRecordMic('${rowId}', 'term')" class="rec-btn-term px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                        <i class="fa-solid fa-microphone"></i> Rec
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Translation Option</label>
+                            <input type="text" value="${translation}" class="row-translation w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <div class="mt-2 space-y-1">
+                                <label class="block text-[11px] font-medium text-slate-400">Option Audio Link (URL or DataURI)</label>
+                                <div class="flex gap-1.5">
+                                    <input type="text" value="${optAudio}" placeholder="https://... or recording" class="row-opt-audio w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-mono">
+                                    <button type="button" onclick="app.toggleRecordMic('${rowId}', 'option')" class="rec-btn-option px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                        <i class="fa-solid fa-microphone"></i> Rec
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(div);
+            }
+
+            toggleRecordMic(rowId, fieldType) {
+                const targetKey = `${rowId}-${fieldType}`;
+                const rowEl = document.getElementById(rowId);
+                const btn = rowEl.querySelector(fieldType === 'term' ? '.rec-btn-term' : '.rec-btn-option');
+                const inputEl = rowEl.querySelector(fieldType === 'term' ? '.row-term-audio' : '.row-opt-audio');
+
+                if (this.mediaRecorder && this.mediaRecorder.state === "recording") {
+                    // Stop Recording
+                    this.mediaRecorder.stop();
+                    btn.innerHTML = `<i class="fa-solid fa-microphone"></i> Rec`;
+                    btn.classList.remove('animate-pulse', 'bg-red-600', 'text-white');
+                    btn.classList.add('bg-rose-50', 'text-rose-600');
+                    return;
+                }
+
+                // Start Microphone Recording
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    alert('Microphone recording is not supported on this browser.');
+                    return;
+                }
+
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(stream => {
+                        this.mediaRecorder = new MediaRecorder(stream);
+                        this.audioChunks = [];
+
+                        this.mediaRecorder.ondataavailable = e => this.audioChunks.push(e.data);
+
+                        this.mediaRecorder.onstop = () => {
+                            const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+                            const reader = new FileReader();
+                            reader.readAsDataURL(blob);
+                            reader.onloadend = () => {
+                                inputEl.value = reader.result; // Attach Base64 audio URI
+                            };
+                            stream.getTracks().forEach(track => track.stop());
+                        };
+
+                        this.mediaRecorder.start();
+
+                        btn.innerHTML = `<i class="fa-solid fa-square"></i> Stop`;
+                        btn.classList.remove('bg-rose-50', 'text-rose-600');
+                        btn.classList.add('animate-pulse', 'bg-red-600', 'text-white');
+                    })
+                    .catch(err => {
+                        console.error('Microphone error:', err);
+                        alert('Could not access microphone.');
+                    });
+            }
+
+            loadSampleIntoEditor() {
+                document.getElementById('custom-deck-name').value = "Sample Audio Deck";
+                const samplePairs = [
+                    { term: 'Cheering Sound', translation: 'Cheer', termAudio: 'https://actions.google.com/sounds/v1/human_voices/human_voice_cheer.ogg', optAudio: '' },
+                    { term: 'Applause Sound', translation: 'Clap', termAudio: 'https://actions.google.com/sounds/v1/crowds/applause_moderate.ogg', optAudio: '' },
+                    { term: 'Bell Chime', translation: 'Ring', termAudio: 'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm.ogg', optAudio: '' },
+                    { term: 'Whistle', translation: 'Whistle', termAudio: 'https://actions.google.com/sounds/v1/sports/whistle_blow.ogg', optAudio: '' }
+                ];
+                this.renderEditorRows(samplePairs);
+            }
+
+            saveCustomDeckAndStart() {
+                const nameInput = document.getElementById('custom-deck-name').value.trim();
+                const container = document.getElementById('editor-rows-container');
+                const rowEls = container.children;
+
+                if (!nameInput) {
+                    alert('Please enter a title for your vocabulary deck.');
+                    return;
+                }
+
+                const pairs = [];
+                Array.from(rowEls).forEach(row => {
+                    const term = row.querySelector('.row-term').value.trim();
+                    const translation = row.querySelector('.row-translation').value.trim();
+                    const termAudio = row.querySelector('.row-term-audio').value.trim();
+                    const optAudio = row.querySelector('.row-opt-audio').value.trim();
+
+                    if (term && translation) {
+                        pairs.push({ term, translation, termAudio, optAudio });
+                    }
+                });
+
+                if (pairs.length < 4) {
+                    alert('Please provide at least 4 valid vocabulary rows to start.');
+                    return;
+                }
+
+                this.currentDeck = {
+                    title: nameInput,
+                    pairs: pairs
+                };
+
+                this.startSession();
+            }
+
+            shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+        }
+
+        // Initialize Global App Instance on Window Load
+        let app;
+        window.onload = function() {
+            app = new LingoPulseApp();
+            app.init();
+        };
+    </script>
+</body>
+</html>
